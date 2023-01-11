@@ -24,15 +24,14 @@ public class ProductService {
             }
         }
     }
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public void saveProductByThrowingCheckedException() throws Exception {
         for(int i=0;i<10;i++){
             Product p=new Product();
             p.setName("name"+i);
             repository.save(p);
+            // now we are explicitily telling to roll back when Exception occurs
             if(i==7){
-                // here RunTime/Unchecked Exception is thrown, so @Transactional annotation
-                // will automatically roll back
                 throw new Exception("something wrong");
             }
         }
