@@ -14,4 +14,8 @@ public class ProductController {
     public void save(){
         service.saveProduct();
     }
+    @GetMapping("/save1")
+    public void save1() throws Exception {
+        service.saveProductByThrowingCheckedException();
+    }
 }

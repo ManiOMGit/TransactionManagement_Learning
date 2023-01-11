@@ -18,7 +18,22 @@ public class ProductService {
             p.setName("name"+i);
             repository.save(p);
             if(i==7){
+                // here RunTime/Unchecked Exception is thrown, so @Transactional annotation
+                // will automatically roll back
                 throw new RuntimeException("something wrong");
+            }
+        }
+    }
+    @Transactional
+    public void saveProductByThrowingCheckedException() throws Exception {
+        for(int i=0;i<10;i++){
+            Product p=new Product();
+            p.setName("name"+i);
+            repository.save(p);
+            if(i==7){
+                // here RunTime/Unchecked Exception is thrown, so @Transactional annotation
+                // will automatically roll back
+                throw new Exception("something wrong");
             }
         }
     }
