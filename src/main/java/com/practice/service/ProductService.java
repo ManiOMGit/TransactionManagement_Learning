@@ -11,7 +11,7 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    @Transactional
+    @Transactional  // New Transaction will start here
     public void saveProduct(){
         for(int i=0;i<10;i++){
             Product p=new Product();

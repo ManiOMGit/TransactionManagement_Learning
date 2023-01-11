@@ -13,6 +13,7 @@ public class EncryptionFactory {
     Map<EncodingPatternEnum, Encryption> map;
     @Autowired
     EncryptionFactory(Set<Encryption> set){
+
         createStrategy(set);
     }
 
