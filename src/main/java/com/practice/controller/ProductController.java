@@ -18,4 +18,5 @@ public class ProductController {
     public void save1() throws Exception {
         service.saveProductByThrowingCheckedException();
     }
+
 }
