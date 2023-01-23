@@ -20,8 +20,5 @@ public class ExceptionHandlerTestingController {
         return new ResponseEntity<>(service.testException(), HttpStatus.OK);
     }
 
-    @ExceptionHandler(value = NullPointerException.class)
-    public String handleException(){
-        return "Exception Occured, try agin";
-    }
+    
 }
