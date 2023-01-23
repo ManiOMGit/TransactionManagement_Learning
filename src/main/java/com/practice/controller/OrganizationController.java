@@ -3,6 +3,7 @@ package com.practice.controller;
 import com.practice.model.Organization;
 import com.practice.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -69,4 +70,8 @@ public class OrganizationController {
         return new ResponseEntity<>(service.findByOrgEstablishedDateGreaterThanOrderByOrgEstablishedDate(date),HttpStatus.OK);
     }
 
+    @GetMapping("/pagination")
+    public ResponseEntity<Page<Organization>> findOrganizationsBasedOnPagination(@RequestParam Integer offset,@RequestParam Integer count){
+        return new ResponseEntity<>(service.findOrganizationsBasedOnPagination(offset,count),HttpStatus.OK);
+    }
 }

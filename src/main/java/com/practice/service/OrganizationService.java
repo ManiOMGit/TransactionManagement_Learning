@@ -3,6 +3,8 @@ package com.practice.service;
 import com.practice.model.Organization;
 import com.practice.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -44,5 +46,10 @@ public class OrganizationService {
 
     public List<Organization> findByOrgEstablishedDateGreaterThanOrderByOrgEstablishedDate(Date date){
         return repository.findByOrgEstablishedDateGreaterThanOrderByOrgEstablishedDate(date);
+    }
+
+    public Page<Organization> findOrganizationsBasedOnPagination(Integer offset,Integer count){
+       Page<Organization> page=repository.findAll(PageRequest.of(offset,count));
+       return page;
     }
 }

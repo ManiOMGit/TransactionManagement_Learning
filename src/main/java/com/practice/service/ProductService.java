@@ -36,4 +36,10 @@ public class ProductService {
             }
         }
     }
+
+    public String testException(){
+        String str=null;
+        str.length();
+        return str;
+    }
 }
