@@ -10,7 +10,7 @@ on:
 
 jobs: 
   build:
-    runs-on: ubuntu latest
+    runs-on: ubuntu-latest
     steps:
       - name: Build my app
         run: echo "Building in ${{ github.event.inputs.environment }}"
