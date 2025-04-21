@@ -1,0 +1,16 @@
+name: build maven application
+
+on:
+  workflow_dispatch: 
+    inputs: 
+      environment:
+        description: 'evn variables'
+        required: true
+        default: "Staging"
+
+jobs: 
+  build:
+    runs-on: ubuntu latest
+    steps:
+      - name: Build my app
+        run: echo "Building in ${{ github.event.inputs.environment }}"
