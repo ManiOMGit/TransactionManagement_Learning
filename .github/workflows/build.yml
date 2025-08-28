@@ -19,6 +19,15 @@ on:
         options:
           - 'LAS'
           - 'ATL'
+      operation:
+        description: 'Operation to perform'
+        type: choice
+        required: true
+        default: 'restart'
+        options:
+          - 'restart'
+          - 'stop'
+          - 'start'
 
 jobs: 
   build:
