@@ -28,6 +28,20 @@ on:
           - 'restart'
           - 'stop'
           - 'start'
+      hosts:
+        description: 'Operation to perform'
+        type: choice
+        required: true
+        default: 'L3-QA1'
+        options:
+          - 'L3-LAS-QA1'
+          - 'L3-LAS-QA2'
+          - 'L3-ATL-QA1'
+          - 'L3-ATL-QA2'
+          - 'L4-LAS-QA1'
+          - 'L4-LAS-QA2'
+          - 'L4-ATL-QA1'
+          - 'L4-ATL-QA2'
 
 jobs: 
   build:
