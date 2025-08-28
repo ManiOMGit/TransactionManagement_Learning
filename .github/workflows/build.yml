@@ -42,6 +42,9 @@ on:
           - 'L4-LAS-QA2'
           - 'L4-ATL-QA1'
           - 'L4-ATL-QA2'
+      use-emoji:
+        type: boolean
+        description: Include 🎉🤣 emojis
 
 jobs: 
   build:
