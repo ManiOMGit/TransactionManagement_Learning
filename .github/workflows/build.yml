@@ -4,21 +4,21 @@ on:
   workflow_dispatch: 
     inputs: 
       environment:
-        description: 'evn variables'
+        description: 'Env variables'
         required: true
         default: "Staging"
       level:
-      description: 'Level to Deploy'
-      type: 'choice'
-      required: true
-      default: L3
-      options:
-      - 'L3'
-      - 'L4'
+        description: 'Level to Deploy'
+        type: choice
+        required: true
+        default: L3
+        options:
+          - L3
+          - L4
 
 jobs: 
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Build my app
-        run: echo "Building in ${{ github.event.inputs.environment }}"
+        run: echo "Building in ${{ github.event.inputs.environment }} at level ${{ github.event.inputs.level }}"
