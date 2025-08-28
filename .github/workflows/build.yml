@@ -3,10 +3,6 @@ name: build maven application
 on:
   workflow_dispatch: 
     inputs: 
-      environment:
-        description: 'Env variables'
-        required: true
-        default: "Staging"
       level:
         description: 'Level to Deploy'
         type: choice
@@ -15,6 +11,14 @@ on:
         options:
           - L3
           - L4
+      region:
+        description: 'Region to deploy application'
+        type: choice
+        required: true
+        default: 'LAS'
+        options:
+          - 'LAS'
+          - 'ATL'
 
 jobs: 
   build:
