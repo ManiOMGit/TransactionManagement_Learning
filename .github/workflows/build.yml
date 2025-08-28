@@ -7,6 +7,14 @@ on:
         description: 'evn variables'
         required: true
         default: "Staging"
+      level:
+      description: 'Level to Deploy'
+      type: 'choice'
+      required: true
+      default: L3
+      options:
+      - 'L3'
+      - 'L4'
 
 jobs: 
   build:
