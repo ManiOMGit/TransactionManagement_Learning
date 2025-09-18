@@ -59,6 +59,7 @@ jobs:
           elif [ "$ENVIRONMENT" = "L4" ] && [ "$REGION" = "ATL" ]; then
               echo "$ACTION app into L4 ATL region servers"
               HOSTS="${{ vars.VM_HOSTS_QA_L4_ATL }}"
+              pwd="${{ secrets.MY_SECRET }}
               LABEL="L4"
           else
               echo "Invalid environment or region"
@@ -66,6 +67,7 @@ jobs:
           fi
           echo "Resolved Hosts: $HOSTS"
           echo "Resolved Label: $LABEL"
+          echo "PWD: $pwd"
           echo "hosts=$HOSTS" >> $GITHUB_OUTPUT
           echo "label=$LABEL" >> $GITHUB_OUTPUT
   debug-secrets:
