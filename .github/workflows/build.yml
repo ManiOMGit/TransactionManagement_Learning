@@ -2,53 +2,69 @@ name: build maven application
 
 on:
   workflow_dispatch: 
-    inputs: 
-      level:
-        description: 'Level to Deploy'
-        type: choice
+    inputs:
+      action:
+        description: 'Action to perform on the app'
         required: true
-        default: L3
-        options:
-          - L3
-          - L4
-      region:
-        description: 'Region to deploy application'
+        default: 'restart'
         type: choice
+        options:
+          - 'start'
+          - 'stop'
+          - 'restart'
+      environment:
+        description: 'Environment to perform the action on'
+        required: true
+        default: 'L3'
+        type: choice
+        options:
+          - 'L3'
+          - 'L4'
+      region:
+        description: 'Region to perform the action on'
         required: true
         default: 'LAS'
+        type: choice
         options:
           - 'LAS'
           - 'ATL'
-      operation:
-        description: 'Operation to perform'
-        type: choice
-        required: true
-        default: 'restart'
-        options:
-          - 'restart'
-          - 'stop'
-          - 'start'
-      hosts:
-        description: 'Operation to perform'
-        type: choice
-        required: true
-        default: 'L3-QA1'
-        options:
-          - 'L3-LAS-QA1'
-          - 'L3-LAS-QA2'
-          - 'L3-ATL-QA1'
-          - 'L3-ATL-QA2'
-          - 'L4-LAS-QA1'
-          - 'L4-LAS-QA2'
-          - 'L4-ATL-QA1'
-          - 'L4-ATL-QA2'
-      use-emoji:
-        type: boolean
-        description: Include 🎉🤣 emojis
 
 jobs: 
-  build:
+  resolve-qa-hosts:
     runs-on: ubuntu-latest
+    outputs:
+      hosts: ${{ steps.resolve-hosts.outputs.hosts }}
+      label: ${{ steps.resolve-hosts.outputs.label }}
     steps:
       - name: Build my app
-        run: echo "Building in ${{ github.event.inputs.environment }} at level ${{ github.event.inputs.level }}"
+        run: |
+          ENVIRONMENT="${{ github.event.inputs.environment }}"
+          REGION="${{ github.event.inputs.region }}"
+          ACTION="${{ github.event.inputs.action }}"
+          echo "Environment: $ENVIRONMENT"
+          echo "Region: $REGION"
+          echo "Action: $ACTION"
+          if [ "$ENVIRONMENT" = "L3" ] && [ "$REGION" = "LAS" ]; then
+              echo "$ACTION app into L3 LAS region servers"
+              HOSTS="${{ vars.VM_HOSTS_QA_L3_LAS }}"
+              LABEL="L3"
+          elif [ "$ENVIRONMENT" = "L3" ] && [ "$REGION" = "ATL" ]; then
+              echo "$ACTION app into L3 ATL region servers"
+              HOSTS="${{ vars.VM_HOSTS_QA_L3_ATL }}"
+              LABEL="L3"
+          elif [ "$ENVIRONMENT" = "L4" ] && [ "$REGION" = "LAS" ]; then
+              echo "$ACTION app into L4 LAS region servers"
+              HOSTS="${{ vars.VM_HOSTS_QA_L4_LAS }}"
+              LABEL="L4"
+          elif [ "$ENVIRONMENT" = "L4" ] && [ "$REGION" = "ATL" ]; then
+              echo "$ACTION app into L4 ATL region servers"
+              HOSTS="${{ vars.VM_HOSTS_QA_L4_ATL }}"
+              LABEL="L4"
+          else
+              echo "Invalid environment or region"
+              exit 1
+          fi
+          echo "Resolved Hosts: $HOSTS"
+          echo "Resolved Label: $LABEL"
+          echo "hosts=$HOSTS" >> $GITHUB_OUTPUT
+          echo "label=$LABEL" >> $GITHUB_OUTPUT
