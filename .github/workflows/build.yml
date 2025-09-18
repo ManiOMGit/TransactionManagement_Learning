@@ -59,7 +59,7 @@ jobs:
           elif [ "$ENVIRONMENT" = "L4" ] && [ "$REGION" = "ATL" ]; then
               echo "$ACTION app into L4 ATL region servers"
               HOSTS="${{ vars.VM_HOSTS_QA_L4_ATL }}"
-              pwd="${{ secrets.MY_SECRET }}
+              pwd="${{ secrets.MY_SECRET }}"
               LABEL="L4"
           else
               echo "Invalid environment or region"
