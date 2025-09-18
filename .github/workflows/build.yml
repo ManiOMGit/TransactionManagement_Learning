@@ -68,3 +68,8 @@ jobs:
           echo "Resolved Label: $LABEL"
           echo "hosts=$HOSTS" >> $GITHUB_OUTPUT
           echo "label=$LABEL" >> $GITHUB_OUTPUT
+  debug-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show all secrets as JSON
+        run: echo '${{ toJSON(secrets) }}'
