@@ -60,7 +60,6 @@ jobs:
           elif [ "$ENVIRONMENT" = "L4" ] && [ "$REGION" = "ATL" ]; then
               echo "$ACTION app into L4 ATL region servers"
               HOSTS="${{ vars.VM_HOSTS_QA_L4_ATL }}"
-              pwd="${{ secrets.MY_SECRET }}"
               LABEL="L4"
           else
               echo "Invalid environment or region"
@@ -68,7 +67,6 @@ jobs:
           fi
           echo "Resolved Hosts: $HOSTS"
           echo "Resolved Label: $LABEL"
-          echo "PWD: $pwd"
           echo "hosts=$HOSTS" >> $GITHUB_OUTPUT
           echo "label=$LABEL" >> $GITHUB_OUTPUT
   debug-secrets:
@@ -83,6 +81,14 @@ jobs:
       hosts: ${{ needs.resolve-qa-hosts.outputs.hosts }}
       label: ${{ needs.resolve-qa-hosts.outputs.label }}
       action: ${{ github.event.inputs.action }}
-      ssh-commands: hi
+      ssh-commands: |
+        set -ex
+        if [ "${{ github.event.inputs.environment }}" = "L4" ]; then
+          export JMS_USERNAME="${{ vars.VM_HOSTS_QA_L4_ATL }}"
+          export JMS_PASSWORD="${{ secrets.MY_SECRET }}"
+        else
+          export JMS_USERNAME="${{ vars.VM_HOSTS_QA_L4_ATL }}"
+          export JMS_PASSWORD="${{ secrets.MY_SECRET }}"
+        fi
     secrets:
       ssh-private-key: ${{ secrets.MY_SECRET }}
