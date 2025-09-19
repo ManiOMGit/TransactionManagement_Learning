@@ -85,7 +85,8 @@ jobs:
         set -ex
         if [ "${{ github.event.inputs.environment }}" = "L4" ]; then
           export JMS_USERNAME="${{ vars.VM_HOSTS_QA_L4_ATL }}"
-          export JMS_PASSWORD={{ .secrets.MY_SECRET}}
+          export JMS_PASSWORD={{ .secrets.MY_SECRET }}
+          export HOSTs="${{ needs.resolve-qa-hosts.outputs.hosts }}"
           
         else
           export JMS_USERNAME="${{ vars.VM_HOSTS_QA_L4_ATL }}"
