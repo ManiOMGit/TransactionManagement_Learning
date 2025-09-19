@@ -1,0 +1,32 @@
+name: Reusable Workflow - App Operations
+
+on:
+  workflow_call:
+    inputs:
+      hosts:
+        required: true
+        type: string
+      label:
+        required: true
+        type: string
+      action:
+        required: true
+        type: string
+    secrets:
+      ssh-private-key:
+        required: true
+
+jobs:
+  app-operation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug input values
+        run: |
+          echo "Hosts: ${{ inputs.hosts }}"
+          echo "Label: ${{ inputs.label }}"
+          echo "Action: ${{ inputs.action }}"
+
+      - name: Use the secret
+        run: |
+          echo "Running SSH operation with private key..."
+          echo "${{ secrets.ssh-private-key }}" | sed 's/./*/g'
