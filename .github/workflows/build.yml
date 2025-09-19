@@ -37,6 +37,7 @@ jobs:
       label: ${{ steps.resolve-hosts.outputs.label }}
     steps:
       - name: Build my app
+        id: resolve-qa-hosts 
         run: |
           ENVIRONMENT="${{ github.event.inputs.environment }}"
           REGION="${{ github.event.inputs.region }}"
