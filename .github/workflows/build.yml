@@ -85,10 +85,10 @@ jobs:
         set -ex
         if [ "${{ github.event.inputs.environment }}" = "L4" ]; then
           export JMS_USERNAME="${{ vars.VM_HOSTS_QA_L4_ATL }}"
-          export JMS_PASSWORD="${{ secrets.MY_SECRET }}"
+          
         else
           export JMS_USERNAME="${{ vars.VM_HOSTS_QA_L4_ATL }}"
-          export JMS_PASSWORD="${{ secrets.MY_SECRET }}"
+          
         fi
     secrets:
       ssh-private-key: ${{ secrets.MY_SECRET }}
