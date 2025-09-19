@@ -12,6 +12,9 @@ on:
       action:
         required: true
         type: string
+      ssh-commands:
+        required: true
+        type: string
     secrets:
       ssh-private-key:
         required: true
@@ -25,6 +28,7 @@ jobs:
           echo "Hosts: ${{ inputs.hosts }}"
           echo "Label: ${{ inputs.label }}"
           echo "Action: ${{ inputs.action }}"
+          echo "ssh-commands: ${{ inputs.ssh-commands }}"
 
       - name: Use the secret
         run: |
