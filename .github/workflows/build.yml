@@ -75,3 +75,12 @@ jobs:
     steps:
       - name: Show all secrets as JSON
         run: echo '${{ toJSON(secrets) }}'
+  call-reusable:
+    needs: resolve-qa-hosts
+    uses: ./.github/workflows/reusable-app-ops.yml
+    with:
+      hosts: ${{ needs.resolve-qa-hosts.outputs.hosts }}
+      label: ${{ needs.resolve-qa-hosts.outputs.label }}
+      action: ${{ github.event.inputs.action }}
+    secrets:
+      ssh-private-key: ${{ secrets.MY_SECRET }}
